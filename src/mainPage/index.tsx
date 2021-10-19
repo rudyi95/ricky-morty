@@ -14,15 +14,17 @@ import { charactersList, character, loading, error } from "../redux/selectors";
 
 const MainPage: React.FC = () => {
   const dispatch = useDispatch();
-  const [number, setNumber] = useState<number>(0);
+  const [number, setNumber] = useState(undefined);
 
   const characters = useSelector(charactersList);
   const characterData = useSelector(character);
   const isLoading = useSelector(loading);
-  const isError = useSelector(error)
+  const isError = useSelector(error);
 
   const getCharacterHandler = (id?: number) => {
-    dispatch(getCharacterById(id || number));
+    if (!!number) {
+      dispatch(getCharacterById(id || number));
+    }
   };
 
   const clearHandler = () => {
@@ -47,6 +49,7 @@ const MainPage: React.FC = () => {
         error={isError}
         clearHandler={clearHandler}
         clearByIdHandler={clearByIdHandler}
+        disableSearch={!number}
         onClick={getCharacterHandler}
         changeNumberHandler={(e: BaseSyntheticEvent) =>
           setNumber(e.target.value)

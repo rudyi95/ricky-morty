@@ -12,6 +12,7 @@ interface IMainPage {
   characters: ICharacter[];
   loading: boolean;
   error?: string;
+  disableSearch: boolean;
   onClick: (id?: number) => void;
   clearHandler: () => void;
   clearByIdHandler: (id: number) => void;
@@ -23,6 +24,7 @@ export const MainPageView: React.FC<IMainPage> = ({
   characters,
   loading,
   error,
+  disableSearch,
   onClick,
   clearHandler,
   clearByIdHandler,
@@ -40,6 +42,7 @@ export const MainPageView: React.FC<IMainPage> = ({
           adornmentText="Search"
           placeholder="Enter any number"
           className={classes.inputGroup}
+          disabled={disableSearch}
         />
         {!!characters.length && (
           <CustomButton text="ClearAll" onClick={clearHandler} />

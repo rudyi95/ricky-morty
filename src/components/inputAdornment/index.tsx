@@ -1,10 +1,10 @@
 import React from "react";
 import { TextField, TextFieldProps } from "@mui/material";
+import classNames from "classnames";
 
 import { CustomButton } from "../button";
 
 import useStyles from "./style";
-import classNames from "classnames";
 
 interface IProps {
   loading?: boolean;
@@ -16,6 +16,7 @@ export const CustomInput: React.FC<IProps & TextFieldProps> = ({
   loading,
   onChange,
   onClick,
+  disabled,
   adornmentText,
   placeholder,
   className,
@@ -33,7 +34,7 @@ export const CustomInput: React.FC<IProps & TextFieldProps> = ({
         InputProps={{
           endAdornment: (
             <CustomButton
-              disabled={loading}
+              disabled={loading || disabled}
               onClick={onClick}
               text={adornmentText}
             />
