@@ -21,8 +21,10 @@ const MainPage: React.FC = () => {
   const isLoading = useSelector(loading);
   const isError = useSelector(error);
 
+  const disableSearch = !!number && number > 0
+
   const getCharacterHandler = (id?: number) => {
-    if (!!number) {
+    if (!!number || number === 0) {
       dispatch(getCharacterById(id || number));
     }
   };
@@ -49,7 +51,7 @@ const MainPage: React.FC = () => {
         error={isError}
         clearHandler={clearHandler}
         clearByIdHandler={clearByIdHandler}
-        disableSearch={!number}
+        disableSearch={!disableSearch}
         onClick={getCharacterHandler}
         changeNumberHandler={(e: BaseSyntheticEvent) =>
           setNumber(e.target.value)
