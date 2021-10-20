@@ -3,9 +3,9 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles(() => ({
   root: {
     position: "relative",
-    display: "flex",
   },
   image: {
+    display: "block",
     width: "100%",
     height: "100%",
     borderRadius: 5,

@@ -14,17 +14,17 @@ import { charactersList, character, loading, error } from "../redux/selectors";
 
 const MainPage: React.FC = () => {
   const dispatch = useDispatch();
-  const [number, setNumber] = useState(undefined);
+  const [number, setNumber] = useState<number>(0);
 
   const characters = useSelector(charactersList);
   const characterData = useSelector(character);
   const isLoading = useSelector(loading);
   const isError = useSelector(error);
 
-  const disableSearch = !!number && number > 0
+  const disableSearch = !!number && number > 0;
 
   const getCharacterHandler = (id?: number) => {
-    if (!!number || number === 0) {
+    if (id || !!number || number === 0) {
       dispatch(getCharacterById(id || number));
     }
   };
@@ -39,8 +39,7 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCharacters());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container>
