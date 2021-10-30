@@ -1,8 +1,15 @@
-import React, { BaseSyntheticEvent, useEffect, useState } from "react";
+import React, {
+  BaseSyntheticEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container } from "@mui/material";
 
-import { MainPageView } from "./view";
+import CustomInput from "../components/inputAdornment";
+import CharacterInfo from "../containers/characterInfo";
+import CharactersList from "../containers/charactersList";
+import CustomButton from "../components/button";
 
 import {
   clearCharacters,
@@ -12,8 +19,12 @@ import {
 } from "../redux/actions/index";
 import { charactersList, character, loading, error } from "../redux/selectors";
 
+import useStyles from "./style";
+
 const MainPage: React.FC = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
+
   const [number, setNumber] = useState<number>(0);
 
   const characters = useSelector(charactersList);
@@ -23,40 +34,72 @@ const MainPage: React.FC = () => {
 
   const disableSearch = !!number && number > 0;
 
-  const getCharacterHandler = (id?: number) => {
-    if (id || !!number || number === 0) {
-      dispatch(getCharacterById(id || number));
+  const getCharacterHandler = useCallback(() => {
+    if (!!number || number === 0) {
+      dispatch(getCharacterById(number));
     }
+  }, [dispatch, number]);
+
+  const getCharacterByIdHandler = useCallback(
+    (id: number) => {
+      if (id !== characterData?.id) {
+        dispatch(getCharacterById(id));
+      } else return;
+    },
+    [dispatch, characterData?.id]
+  );
+
+  const changeNumberHandler = (e: BaseSyntheticEvent) => {
+    setNumber(+e.target.value);
   };
 
-  const clearHandler = () => {
+  const clearHandler = useCallback(() => {
     dispatch(clearCharacters());
-  };
+  }, [dispatch]);
 
-  const clearByIdHandler = (id: number) => {
-    dispatch(clearById(id));
-  };
+  const clearByIdHandler = useCallback(
+    (id: number) => {
+      dispatch(clearById(id));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(getCharacters());
   }, [dispatch]);
 
   return (
-    <Container>
-      <MainPageView
-        character={characterData}
-        characters={characters}
-        loading={isLoading}
-        error={isError}
-        clearHandler={clearHandler}
-        clearByIdHandler={clearByIdHandler}
-        disableSearch={!disableSearch}
-        onClick={getCharacterHandler}
-        changeNumberHandler={(e: BaseSyntheticEvent) =>
-          setNumber(e.target.value)
-        }
-      />
-    </Container>
+    <div className={classes.root}>
+      <div className={classes.actions}>
+        <CustomInput
+          loading={isLoading}
+          onChange={changeNumberHandler}
+          placeholder="Enter any number"
+          className={classes.inputGroup}
+        >
+          <CustomButton
+            onClick={() => getCharacterHandler()}
+            text="Search"
+            disabled={!disableSearch}
+          />
+        </CustomInput>
+        {!!characters.length && (
+          <CustomButton text="ClearAll" onClick={clearHandler} />
+        )}
+      </div>
+
+      <div className={classes.infoContainer}>
+        <CharacterInfo character={characterData} error={isError} />
+        {!!characters.length && (
+          <CharactersList
+            characters={characters}
+            characterId={characterData?.id}
+            onClick={getCharacterByIdHandler}
+            clearByIdHandler={clearByIdHandler}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

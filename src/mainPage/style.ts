@@ -5,7 +5,8 @@ const useStyles = makeStyles(() => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    marginTop: 65,
+    alignItems: "center",
+    margin: 65,
   },
   actions: {
     width: "100%",

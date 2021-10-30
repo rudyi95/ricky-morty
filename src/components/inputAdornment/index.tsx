@@ -2,24 +2,18 @@ import React from "react";
 import { TextField, TextFieldProps } from "@mui/material";
 import classNames from "classnames";
 
-import { CustomButton } from "../button";
-
 import useStyles from "./style";
 
 interface IProps {
   loading?: boolean;
-  onClick?: () => void;
-  adornmentText?: string;
 }
 
-export const CustomInput: React.FC<IProps & TextFieldProps> = ({
+const CustomInput: React.FC<IProps & TextFieldProps> = ({
   loading,
   onChange,
-  onClick,
-  disabled,
-  adornmentText,
   placeholder,
   className,
+  children,
 }) => {
   const classes = useStyles();
 
@@ -32,15 +26,11 @@ export const CustomInput: React.FC<IProps & TextFieldProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         InputProps={{
-          endAdornment: (
-            <CustomButton
-              disabled={loading || disabled}
-              onClick={onClick}
-              text={adornmentText}
-            />
-          ),
+          endAdornment: children,
         }}
       />
     </div>
   );
 };
+
+export default CustomInput;

@@ -1,18 +1,18 @@
-import React from "react";
+import React, { memo } from "react";
 import classNames from "classnames";
 
-import { CustomImage } from "../../components/customImage";
+import CustomImage from "../../components/customImage";
 
 import useStyles from "./style";
 
 interface IProps {
-  character?: ICharacter;
+  characterId?: number;
   characters: ICharacter[];
-  onClick: (id?: number) => void;
+  onClick: (id: number) => void;
   clearByIdHandler: (id: number) => void;
 }
-export const CharactersList: React.FC<IProps> = ({
-  character,
+const CharactersList: React.FC<IProps> = ({
+  characterId,
   characters,
   onClick,
   clearByIdHandler,
@@ -25,23 +25,29 @@ export const CharactersList: React.FC<IProps> = ({
         return (
           <div
             className={classNames(classes.listImg, {
-              [classes.selected]: character && char.id === character.id,
+              [classes.selected]: char.id === characterId,
             })}
             key={char.id}
             onClick={() => onClick(char.id)}
           >
-            <CustomImage
-              src={char.image}
-              alt="Character"
-              onDelete={
-                character && char.id === character.id
-                  ? () => clearByIdHandler(char.id)
-                  : undefined
-              }
-            />
+            {char.id === characterId && (
+              <div
+                className={classes.removeCircle}
+                id={char.id.toString()}
+                onClick={(e) => {
+                  clearByIdHandler(char.id);
+                  e.stopPropagation();
+                }}
+              >
+                X
+              </div>
+            )}
+            <CustomImage src={char.image} alt="Character" />
           </div>
         );
       })}
     </div>
   );
 };
+
+export default memo(CharactersList);

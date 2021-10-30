@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Button, ButtonBaseProps } from "@mui/material";
 import classNames from "classnames";
 
@@ -8,7 +8,8 @@ interface IProps {
   text?: string;
   variant?: "text" | "outlined" | "contained" | undefined;
 }
-export const CustomButton: React.FC<IProps & ButtonBaseProps> = ({
+
+const CustomButton: React.FC<IProps & ButtonBaseProps> = ({
   text,
   className,
   onClick,
@@ -25,3 +26,5 @@ export const CustomButton: React.FC<IProps & ButtonBaseProps> = ({
     </div>
   );
 };
+
+export default memo(CustomButton)

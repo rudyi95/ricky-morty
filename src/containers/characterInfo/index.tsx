@@ -1,31 +1,22 @@
+import React, { memo } from "react";
 import classNames from "classnames";
-import React from "react";
 
-import { CustomImage } from "../../components/customImage";
+import CustomImage from "../../components/customImage";
 
 import useStyles from "./style";
 
 interface IProps {
   character?: ICharacter;
-  loading: boolean;
   error?: string;
 }
 
-export const CharacterInfo: React.FC<IProps> = ({
-  character,
-  loading,
-  error,
-}) => {
+const CharacterInfo: React.FC<IProps> = ({ character, error }) => {
   const classes = useStyles();
-
+  console.log(character, error);
   return (
     <div className={classes.root}>
       <div className={classes.imgContainer}>
-        <CustomImage
-          src={character && character.image}
-          alt="Character"
-          loading={loading}
-        />
+        <CustomImage src={character && character.image} alt="Character" />
       </div>
       {error && <div className={classes.error}>{error}</div>}
       {character && (
@@ -89,3 +80,5 @@ export const CharacterInfo: React.FC<IProps> = ({
     </div>
   );
 };
+
+export default memo(CharacterInfo);

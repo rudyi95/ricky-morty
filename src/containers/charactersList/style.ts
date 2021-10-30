@@ -6,6 +6,7 @@ const useStyles = makeStyles(() => ({
     overflow: "scroll",
   },
   listImg: {
+    position: "relative",
     width: 66,
     height: 66,
     display: "flex",
@@ -27,6 +28,17 @@ const useStyles = makeStyles(() => ({
     "& img": {
       opacity: 1,
     },
+  },
+  removeCircle: {
+    position: "absolute",
+    borderRadius: 20,
+    width: 20,
+    height: 20,
+    backgroundColor: "#F1F1F1",
+    right: -10,
+    top: -10,
+    cursor: "pointer",
+    zIndex: 1,
   },
 }));
 
