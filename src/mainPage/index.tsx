@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import CustomInput from "../components/inputAdornment";
 import CharacterInfo from "../containers/characterInfo";
@@ -12,27 +11,25 @@ import CharactersList from "../containers/charactersList";
 import CustomButton from "../components/button";
 
 import {
-  clearCharacters,
-  getCharacterById,
   getCharacters,
+  getCharacterById,
+  clearCharacters,
   clearById,
-} from "../redux/actions/index";
-import { charactersList, character, loading, error } from "../redux/selectors";
+} from "../services/characterService";
+import storageService from "../services/storageService";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 
 import useStyles from "./style";
 
 const MainPage: React.FC = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
+  const { loading, character } = useAppSelector(
+    (state) => state.characterReducer
+  );
+  const { data } = useAppSelector((state) => state.charactersReducer);
   const [number, setNumber] = useState<number>(0);
-
-  const characters = useSelector(charactersList);
-  const characterData = useSelector(character);
-  const isLoading = useSelector(loading);
-  const isError = useSelector(error);
-
-  const disableSearch = !!number && number > 0;
+  const lsData = storageService.get<ICharacter[]>("characters")?.length;
 
   const getCharacterHandler = useCallback(() => {
     if (!!number || number === 0) {
@@ -42,11 +39,11 @@ const MainPage: React.FC = () => {
 
   const getCharacterByIdHandler = useCallback(
     (id: number) => {
-      if (id !== characterData?.id) {
+      if (id !== character?.id) {
         dispatch(getCharacterById(id));
       } else return;
     },
-    [dispatch, characterData?.id]
+    [dispatch, character?.id]
   );
 
   const changeNumberHandler = (e: BaseSyntheticEvent) => {
@@ -66,13 +63,13 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCharacters());
-  }, [dispatch]);
+  }, [dispatch, lsData]);
 
   return (
     <div className={classes.root}>
       <div className={classes.actions}>
         <CustomInput
-          loading={isLoading}
+          loading={loading}
           onChange={changeNumberHandler}
           placeholder="Enter any number"
           className={classes.inputGroup}
@@ -80,20 +77,20 @@ const MainPage: React.FC = () => {
           <CustomButton
             onClick={() => getCharacterHandler()}
             text="Search"
-            disabled={!disableSearch}
+            disabled={!number}
           />
         </CustomInput>
-        {!!characters.length && (
+        {!!data.length && (
           <CustomButton text="ClearAll" onClick={clearHandler} />
         )}
       </div>
 
       <div className={classes.infoContainer}>
-        <CharacterInfo character={characterData} error={isError} />
-        {!!characters.length && (
+        <CharacterInfo />
+        {!!data.length && (
           <CharactersList
-            characters={characters}
-            characterId={characterData?.id}
+            characters={data}
+            characterId={character?.id}
             onClick={getCharacterByIdHandler}
             clearByIdHandler={clearByIdHandler}
           />

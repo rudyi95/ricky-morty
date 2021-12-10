@@ -1,10 +1,3 @@
-declare interface ICharacterReducer {
-  results: ICharacter[];
-  character?: ICharacter;
-  loading: boolean;
-  error?: string
-}
-
 declare interface ICharacter {
   name: string;
   species: string;

@@ -3,16 +3,17 @@ import classNames from "classnames";
 
 import CustomImage from "../../components/customImage";
 
+import { useAppSelector } from "../../hooks/redux";
+
 import useStyles from "./style";
 
-interface IProps {
-  character?: ICharacter;
-  error?: string;
-}
-
-const CharacterInfo: React.FC<IProps> = ({ character, error }) => {
+const CharacterInfo: React.FC = () => {
   const classes = useStyles();
-  console.log(character, error);
+
+  const { error, character } = useAppSelector(
+    (state) => state.characterReducer
+  );
+
   return (
     <div className={classes.root}>
       <div className={classes.imgContainer}>

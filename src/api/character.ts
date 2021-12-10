@@ -5,7 +5,10 @@ const BASE_CONNECTION = axios.create({
 });
 
 const characterApi = {
-  getCharacterById: (id: number) => BASE_CONNECTION.get(`character/${id}`),
+  getById: async (id: number) => {
+    const res = await BASE_CONNECTION.get<ICharacter>(`character/${id}`);
+    return res;
+  },
 };
 
 export default characterApi;
