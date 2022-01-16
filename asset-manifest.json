@@ -3,21 +3,21 @@
     "main.css": "/ricky-morty/static/css/main.61634ec4.chunk.css",
     "main.js": "/ricky-morty/static/js/main.387bfa86.chunk.js",
     "main.js.map": "/ricky-morty/static/js/main.387bfa86.chunk.js.map",
-    "runtime-main.js": "/ricky-morty/static/js/runtime-main.b898fa47.js",
-    "runtime-main.js.map": "/ricky-morty/static/js/runtime-main.b898fa47.js.map",
+    "runtime-main.js": "/ricky-morty/static/js/runtime-main.d06843d1.js",
+    "runtime-main.js.map": "/ricky-morty/static/js/runtime-main.d06843d1.js.map",
     "static/js/2.e8c88ad6.chunk.js": "/ricky-morty/static/js/2.e8c88ad6.chunk.js",
     "static/js/2.e8c88ad6.chunk.js.map": "/ricky-morty/static/js/2.e8c88ad6.chunk.js.map",
-    "static/js/3.b48238a0.chunk.js": "/ricky-morty/static/js/3.b48238a0.chunk.js",
-    "static/js/3.b48238a0.chunk.js.map": "/ricky-morty/static/js/3.b48238a0.chunk.js.map",
+    "static/js/3.8249ee8f.chunk.js": "/ricky-morty/static/js/3.8249ee8f.chunk.js",
+    "static/js/3.8249ee8f.chunk.js.map": "/ricky-morty/static/js/3.8249ee8f.chunk.js.map",
     "static/js/4.082e32fa.chunk.js": "/ricky-morty/static/js/4.082e32fa.chunk.js",
     "static/js/4.082e32fa.chunk.js.map": "/ricky-morty/static/js/4.082e32fa.chunk.js.map",
     "index.html": "/ricky-morty/index.html",
     "static/css/main.61634ec4.chunk.css.map": "/ricky-morty/static/css/main.61634ec4.chunk.css.map",
     "static/js/2.e8c88ad6.chunk.js.LICENSE.txt": "/ricky-morty/static/js/2.e8c88ad6.chunk.js.LICENSE.txt",
-    "static/js/3.b48238a0.chunk.js.LICENSE.txt": "/ricky-morty/static/js/3.b48238a0.chunk.js.LICENSE.txt"
+    "static/js/3.8249ee8f.chunk.js.LICENSE.txt": "/ricky-morty/static/js/3.8249ee8f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b898fa47.js",
+    "static/js/runtime-main.d06843d1.js",
     "static/js/2.e8c88ad6.chunk.js",
     "static/css/main.61634ec4.chunk.css",
     "static/js/main.387bfa86.chunk.js"
